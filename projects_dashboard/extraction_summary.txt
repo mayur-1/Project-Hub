@@ -1,0 +1,30 @@
+=== doc_extracted_1.txt (Notesight_GEN_AI_Deployment_Analysis.docx) ===
+Notesight - GEN AI RepoDeployment Automation PlanAnalysis • Scaling  • Monitoring • Auto-Recovery • Alerting1. Current State OverviewThe Notesight GEN AI repository currently runs on 2 EC2 instances (Dev & Prod). All services are containerized via Docker Compose but deployment is 100% manual.🏗️  Current StackAPI ServerFastAPI (Dockerfile.api)WorkersCelery WorkersDatabaseMongoDBCache / QueueRedisAI AgentsProfiling Agent, Planner Agent, Content AgentNetworkCustom Docker network: ns-ai-networkInfra
+
+=== doc_extracted_2.txt (Notesight(API Jenkins work flow).docx) ===
+Document for notesight-api┌───────────────────────────────┐ │        Developer Pushes       │ │       Code to Git Branch       │ │      (main / dev / prod)       │ └───────────────┬───────────────┘                 │                 ▼        ┌──────────────────┐        │ Jenkins Pipeline │        └──────────────────┘                 │                 ▼     ┌─────────────────────────────┐     │ Parameter: ENVIRONMENT      │     │ Choose DEV or PROD          │     └───────────────┬─────────────┘   
+
+=== doc_extracted_3.txt (NoteSite Project(FrontEnd Work Flow).docx) ===
+[FILE NOT FOUND IN DIRECTORY]
+
+=== doc_extracted_4.txt (DEV_AWS_ECS_SQS_Architecture_and_Costing-Client.docx) ===
+[FILE NOT FOUND IN DIRECTORY]
+
+=== doc_extracted_5.txt (Dev_ECS_SQS_Autoscaling_Architecture_Documentation.docx) ===
+[FILE NOT FOUND IN DIRECTORY]
+
+=== doc_extracted_6.txt (NoteSight_DEV_Infrastructure-final.docx) ===
+[FILE NOT FOUND IN DIRECTORY]
+
+=== doc_extracted_7.txt (Backend_Infrastructure_Improvement_Plan.docx) ===
+Backend Infrastructure Improvement PlanAWS Backend API & Kafka Infrastructure Enhancement Proposal1. Project OverviewThe backend API application is currently hosted on AWS with Jenkins-based deployments and a separate Kafka server. While the application is functioning properly, there are infrastructure gaps related to monitoring, scalability, backup, and disaster recovery.This proposal outlines the planned improvements required to increase system reliability, availability, operational visibility
+
+=== doc_extracted_8.txt (New Architecture-Cost.docx) ===
+[FILE NOT FOUND IN DIRECTORY]
+
+=== doc_extracted_9.txt (Notesight_DEV_CICD_Reference.docx) ===
+[FILE NOT FOUND IN DIRECTORY]
+
+=== doc_extracted_10.txt (Notesight API-(ASG-ALB).docx) ===
+Notsight API✅ Important (Based on Our Current Architecture)Right now, our setup is:One EC2 nodeDocker Swarm (single-node swarm)API, Migration, Redis running inside the same EC2Jenkins deploys → Docker Stack deployNo load balancerNo auto scalingRedis, Mongo, Kafka not external👉 This architecture cannot auto-scale.Because:ComponentProblemDocker SwarmRequires multi-node cluster to scale replicas across nodesRedis inside EC2Cannot scale or share between machinesMigration inside containerRuns on ever
+

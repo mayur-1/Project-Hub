@@ -1,0 +1,86 @@
+Notesight Infrastructure Improvement Proposal
+Backend API, Kafka & GEN AI Infrastructure Enhancement Plan
+1. Project Overview
+The Notesight platform currently consists of Backend API infrastructure with Kafka integration and a GEN AI platform running containerized AI services on AWS EC2 instances.
+This proposal outlines the planned improvements required to improve monitoring, scalability, availability, deployment automation, disaster recovery, and operational visibility.
+2. Current Infrastructure Challenges
+Backend API & Kafka
+No centralized monitoring and alerting
+Single server dependency creates downtime risk
+No autoscaling or failover mechanism
+No automated backup and disaster recovery process
+GEN AI Infrastructure
+Manual deployment process
+No container health monitoring
+No automatic restart or self-healing
+Limited scalability for AI workloads
+3. Proposed Improvements
+Monitoring & Alerting
+Implement AWS CloudWatch, Grafana, and Prometheus
+Monitor APIs, Kafka, Docker containers, and AI services
+Configure Email/Slack alerts for failures and downtime
+Deployment Automation
+Implement CI/CD pipeline using Jenkins or GitHub Actions
+Automate deployments and rollback process
+Reduce manual operational effort
+High Availability & Autoscaling
+Implement AWS Load Balancer
+Configure Auto Scaling Group for backend servers
+Enable automatic failover and unhealthy instance replacement
+Container Auto-Recovery
+Enable Docker restart policies and health checks
+Automatically restart failed containers
+Reduce downtime and improve stability
+Backup & Disaster Recovery
+Enable automated EC2 and EBS snapshot backups
+Implement infrastructure recovery procedures
+Improve recovery readiness and business continuity
+Logging & Security
+Centralize application and infrastructure logs
+Improve troubleshooting visibility
+Implement secure access controls and HTTPS
+4. Expected Benefits
+Area
+Improvement
+Availability
+Reduced downtime and improved uptime
+Monitoring
+Real-time alerts and proactive issue detection
+Recovery
+Faster recovery and restoration
+Scalability
+Better handling of traffic and AI workloads
+Security
+Improved infrastructure protection
+Operations
+Better troubleshooting and visibility
+5. Estimated Monthly Infrastructure Cost
+Component
+Purpose
+Estimated Monthly Cost
+AWS EC2 Backend Servers
+High Availability & Autoscaling
+₹12,000 – ₹20,000
+Application Load Balancer
+Traffic distribution & failover
+₹1,500 – ₹3,000
+Kafka Monitoring
+Kafka health monitoring
+₹1,000 – ₹2,000
+CloudWatch & Monitoring
+Infrastructure monitoring & alerts
+₹2,000 – ₹5,000
+GEN AI Monitoring
+Container & AI service monitoring
+₹2,000 – ₹4,000
+EBS Snapshots / Backups
+Backup & disaster recovery
+₹1,000 – ₹4,000
+Networking & Data Transfer
+Bandwidth & traffic usage
+₹1,000 – ₹3,000
+Estimated Total Monthly Cost: Approx. ₹20,000 – ₹45,000 per month.
+Final costing may vary depending on traffic, server sizing, storage usage, and monitoring requirements.
+6. Conclusion
+The proposed improvements will help transform the Notesight infrastructure into a more stable, scalable, secure, and production-ready environment.
+These enhancements will reduce operational risks, improve monitoring and recovery capabilities, support future scalability, and provide better operational visibility across Backend API, Kafka, and GEN AI services.

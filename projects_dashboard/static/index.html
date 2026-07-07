@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Hub — Neural Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css?v=37">
+</head>
+<body>
+    <div id="auth-page">
+        <canvas id="auth-neural-bg" class="auth-neural-canvas"></canvas>
+        <div class="ambient-glow"></div>
+        <div class="auth-orb auth-orb-1"></div>
+        <div class="auth-orb auth-orb-2"></div>
+        <div class="auth-container">
+            <div class="avatar-side">
+                <video class="avatar-video" autoplay loop muted playsinline>
+                    <source src="/static/avatar.mp4" type="video/mp4">
+                </video>
+                <div class="avatar-overlay"></div>
+                    <div class="avatar-content">
+                        <div class="avatar-brand">
+                            <span class="brand-dot"></span>
+                            <span>PROJECT HUB</span>
+                            <span class="ai-badge" style="margin-left:auto;font-size:0.6rem">AI-POWERED</span>
+                        </div>
+                        <div class="avatar-quote">
+                            <h2 id="ai-welcome-text"></h2>
+                            <p id="ai-welcome-subtext"></p>
+                        </div>
+                        <div class="auth-status-bar">
+                            <div class="auth-status-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Enterprise Security</span>
+                            </div>
+                            <div class="auth-status-item">
+                                <i class="fas fa-brain"></i>
+                                <span>AI-Powered Analytics</span>
+                            </div>
+                            <div class="auth-status-item">
+                                <i class="fas fa-cloud"></i>
+                                <span>Real-time Sync</span>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="form-side">
+                <div id="login-form" class="auth-form visible">
+                    <div class="form-header">
+                        <h1>Welcome Back</h1>
+                        <p class="subtitle">Sign in to your neural dashboard</p>
+                    </div>
+                    <form onsubmit="handleLogin(event)">
+                        <div class="input-field">
+                            <i class="far fa-user"></i>
+                            <input type="text" id="login-username" placeholder="Username" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="far fa-lock"></i>
+                            <input type="password" id="login-password" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="action-btn" id="login-btn">
+                            <span class="btn-text">Sign In</span>
+                            <span class="btn-spinner" style="display:none"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        </button>
+                    </form>
+                    <p class="switch-prompt">New here? <a href="#" onclick="showRegister()">Create an account</a></p>
+                </div>
+                <div id="register-form" class="auth-form">
+                    <div class="form-header">
+                        <h1>Create an account</h1>
+                        <p class="subtitle">Get started with your free dashboard</p>
+                    </div>
+                    <form onsubmit="handleRegister(event)">
+                        <div class="input-field">
+                            <i class="far fa-user"></i>
+                            <input type="text" id="reg-username" placeholder="Choose Username" required>
+                        </div>
+                        <div class="input-field">
+                            <i class="far fa-envelope"></i>
+                            <input type="email" id="reg-email" placeholder="Email Address (optional)">
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-mobile-alt"></i>
+                            <input type="tel" id="reg-mobile" placeholder="Mobile Number (optional)">
+                        </div>
+                        <div class="input-field">
+                            <i class="far fa-lock"></i>
+                            <input type="password" id="reg-password" placeholder="Password (min 4 chars)" required oninput="checkPasswordStrength(this.value)">
+                        </div>
+                        <div id="password-strength" style="display:none;margin-bottom:16px">
+                            <div style="display:flex;gap:4px;margin-bottom:4px">
+                                <div class="pstr-bar" id="pstr-1"></div>
+                                <div class="pstr-bar" id="pstr-2"></div>
+                                <div class="pstr-bar" id="pstr-3"></div>
+                                <div class="pstr-bar" id="pstr-4"></div>
+                            </div>
+                            <div id="pstr-label" style="font-size:0.7rem;color:var(--text-muted)"></div>
+                        </div>
+                        <div class="input-field">
+                            <i class="far fa-lock"></i>
+                            <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required>
+                        </div>
+                        <div id="reg-error" style="display:none;margin-bottom:12px;padding:8px 12px;background:rgba(243,97,111,0.1);border:1px solid rgba(243,97,111,0.2);border-radius:8px;color:#f3616f;font-size:0.78rem"></div>
+                        <button type="submit" class="action-btn" id="register-btn">
+                            <span class="btn-text">Create Account</span>
+                            <span class="btn-spinner" style="display:none"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        </button>
+                    </form>
+                    <p class="switch-prompt">Already registered? <a href="#" onclick="showLogin()">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="app">
+        <aside id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-header">
+                <div class="d-flex align-items-center gap-3">
+                    <svg width="32" height="32" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" stroke="url(#bg)" stroke-width="1.5"/><circle cx="18" cy="18" r="4" fill="#00F2FE"/><path d="M18 2 C30 10 30 26 18 34 C6 26 6 10 18 2Z" stroke="url(#bg)" stroke-width="0.8" fill="none" opacity="0.4"/><defs><linearGradient id="bg" x1="0" y1="0" x2="36" y2="36"><stop stop-color="#00F2FE"/><stop offset="1" stop-color="#4FACFE"/></linearGradient></defs></svg>
+                    <div>
+                        <div class="brand-title">Project Hub</div>
+                        <div class="brand-subtitle">Enterprise Dashboard v3</div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <ul class="menu">
+                    <li class="sidebar-title">Navigation</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link nav-item active" data-page="dashboard" href="#">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link nav-item" data-page="projects" href="#">
+                            <i class="fas fa-folder"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link nav-item" data-page="worklog" href="#">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Work Log</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link nav-item" data-page="analytics" href="#">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Analytics</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-title">Intelligence</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link nav-item" data-page="ai-insights" href="#">
+                            <i class="fas fa-brain"></i>
+                            <span>AI Insights</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <div id="sidebar-user" class="sidebar-user"></div>
+                <div class="sidebar-actions">
+                    <button class="sidebar-action-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                        <span id="theme-label">Dark</span>
+                    </button>
+                    <button class="sidebar-action-btn logout" onclick="logoutUser()" title="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main id="main-content">
+            <div class="page-heading">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="hamburger-btn" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Toggle menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h3 id="page-title" class="mb-0">Dashboard</h3>
+                    </div>
+                    <div style="display:flex;gap:6px">
+                        <button class="btn btn-sm btn-glass" onclick="openCommandPalette()">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                        <button class="btn btn-sm btn-glass" onclick="refreshData()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="page-content"></div>
+        </main>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-box-header">
+                <h5 class="modal-box-title" id="modal-title">Modal</h5>
+                <button type="button" class="btn-close" onclick="closeModal()"></button>
+            </div>
+            <div id="modal-body" class="modal-box-body"></div>
+        </div>
+    </div>
+
+    <div id="cmd-palette-overlay" class="modal-overlay" onclick="closeCommandPalette(event)">
+        <div class="cmd-palette" onclick="event.stopPropagation()">
+            <div class="cmd-palette-header">
+                <i class="fas fa-search"></i>
+                <input type="text" id="cmd-search" class="cmd-palette-input" placeholder="Search actions, pages, or ask AI..." autofocus>
+                <span class="cmd-kbd">ESC</span>
+            </div>
+            <div id="cmd-results" class="cmd-palette-results"></div>
+            <div class="cmd-palette-footer">
+                <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+                <span><kbd>↵</kbd> select</span>
+                <span><kbd>ESC</kbd> close</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="ai-panel-overlay" class="modal-overlay" onclick="closeAIPanel(event)">
+        <div class="modal-box modal-box-lg" onclick="event.stopPropagation()">
+            <div class="modal-box-header">
+                <h5 class="modal-box-title"><i class="fas fa-brain" style="color:#00f2fe"></i> AI Assistant</h5>
+                <button type="button" class="btn-close" onclick="closeAIPanel()"></button>
+            </div>
+            <div id="ai-panel-body" class="modal-box-body">
+                <div id="ai-query-section" style="margin-bottom:16px">
+                    <div style="display:flex;gap:8px">
+                        <input type="text" id="ai-query-input" class="form-control" placeholder="Ask anything about your projects..." style="flex:1">
+                        <button class="btn btn-sm" onclick="askAI()"><i class="fas fa-robot"></i> Ask</button>
+                    </div>
+                    <div class="text-muted text-sm" style="margin-top:6px">
+                        Try: "my hours this week", "active projects", "project health", "today's work"
+                    </div>
+                </div>
+                <div id="ai-response" style="display:none">
+                    <div style="background:rgba(0,242,254,0.05);border-radius:10px;padding:16px;margin-bottom:16px;border:1px solid rgba(0,242,254,0.1)">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                            <i class="fas fa-robot" style="color:#00f2fe"></i>
+                            <span style="font-weight:600;font-size:0.9rem">AI Response</span>
+                        </div>
+                        <div id="ai-answer" style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6"></div>
+                    </div>
+                    <div id="ai-response-data"></div>
+                </div>
+                <div id="ai-insights-grid" class="grid-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="/static/script.js?v=37"></script>
+</body>
+</html>
