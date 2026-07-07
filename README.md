@@ -193,4 +193,4 @@ Toggle between **dark** and **light** mode using the moon/sun button in the side
 
 ## License
 
-MIT
+Mayur Shrirao
